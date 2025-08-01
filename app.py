@@ -32,13 +32,16 @@ def allowed_file(filename):
 def upload_image():
     token = request.args.get('token')
     if token != UPLOAD_TOKEN:
+        print("Unauthorized")
         return jsonify({'error': 'Unauthorized'}), 401
 
     if 'imageInput' not in request.files:
+        print("No file part")
         return jsonify({'error': 'No file part'}), 400
 
-    file = request.files['file']
+    file = request.files['imageInput']
     if file.filename == '':
+        print("No selected file")
         return jsonify({'error': 'No selected file'}), 400
 
     if file and allowed_file(file.filename):
@@ -62,4 +65,4 @@ def home():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)
