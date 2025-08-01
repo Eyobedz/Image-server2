@@ -34,7 +34,7 @@ def upload_image():
     if token != UPLOAD_TOKEN:
         return jsonify({'error': 'Unauthorized'}), 401
 
-    if 'file' not in request.files:
+    if 'imageInput' not in request.files:
         return jsonify({'error': 'No file part'}), 400
 
     file = request.files['file']
